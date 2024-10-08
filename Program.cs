@@ -14,26 +14,34 @@ while (true)
     {
         break;
     }
+
+    if( DateTime.TryParse(temp, out dt))
+    {
+        Console.Write("Id: ");
+        int id = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Name: ");
+        string n = Console.ReadLine();
+
+
+        Person p = new Person(dt, id, n);
+        people.Add(p);
+    }
     else
     {
-        dt = Convert.ToDateTime(temp);
+        Console.WriteLine("Please enter (yyyy-MM-dd) format");
     }
-
-    Console.Write("Id: ");
-    int id = Convert.ToInt32(Console.ReadLine());
-    Console.Write("Name: ");
-    string n = Console.ReadLine();
-
-    Person p = new Person(dt, id, n);
-    people.Add(p);
-
 }
 
+// sort ascending by Date
 List<Person> sortedPersons = people.OrderBy(p => p.dt).ToList();
 
-Console.WriteLine("Date Id Name");
+// insert variable 0, 1, 2.
+// negative is left aligned, positive is right aligned
+const string formatStr = "{0, -20:yyyy-MM-dd} {1, -10} {2}";
+
+Console.WriteLine(formatStr, "Date", "Id", "Name");
 foreach (Person p in sortedPersons)
 {
-    Console.WriteLine(p.dt + " " + p.id + " " + p.Name );
+    Console.WriteLine(formatStr, p.dt, p.id, p.Name );
 }
 Console.ReadKey();
